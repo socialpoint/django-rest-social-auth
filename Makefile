@@ -12,7 +12,7 @@ all: run-example
 
 build: .build
 .build: Dockerfile scripts/*
-	docker build -t st4lk/django-rest-social-auth .
+	docker build -t sp-ivan-alcoceba/django-rest-social-auth .
 	touch $@
 
 rebuild:
@@ -23,7 +23,7 @@ run: build
 	docker run -it --rm --name django-rest-social-auth \
 		-p $(PORT):$(PORT) \
 		-v $(PWD):$(PROJECT_PATH_DOCKER)/ \
-		st4lk/django-rest-social-auth "$(COMMAND)"
+		sp-ivan-alcoceba/django-rest-social-auth "$(COMMAND)"
 
 run-example:
 	@COMMAND='make native-run-example' $(MAKE) run
@@ -83,7 +83,8 @@ native-install-python-versions: .install-python-versions
 	PYENV_ROOT=$(PROJECT_PATH_NATIVE)/.pyenv $(PROJECT_PATH_NATIVE)/.pyenv/bin/pyenv install -s 3.6.10
 	PYENV_ROOT=$(PROJECT_PATH_NATIVE)/.pyenv $(PROJECT_PATH_NATIVE)/.pyenv/bin/pyenv install -s 3.7.7
 	PYENV_ROOT=$(PROJECT_PATH_NATIVE)/.pyenv $(PROJECT_PATH_NATIVE)/.pyenv/bin/pyenv install -s 3.8.2
-	$(PROJECT_PATH_NATIVE)/.pyenv/bin/pyenv global system 3.5.9 3.6.10 3.7.7 3.8.2
+	PYENV_ROOT=$(PROJECT_PATH_NATIVE)/.pyenv $(PROJECT_PATH_NATIVE)/.pyenv/bin/pyenv install -s 3.9.7
+	$(PROJECT_PATH_NATIVE)/.pyenv/bin/pyenv global system 3.5.9 3.6.10 3.7.7 3.8.2 3.9.7
 	touch $@
 
 native-test-tox: native-install-python-versions native-clean
